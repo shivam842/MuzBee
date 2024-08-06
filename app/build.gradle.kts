@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlin.serialization.json)
 
+    // Accompanist Permission
+    implementation(libs.accompanist.permissions)
+
     // Splash API
     implementation(libs.androidx.core.splashscreen)
 
