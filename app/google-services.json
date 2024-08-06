@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "276965727572",
+    "firebase_url": "https://muzbee-4aa8d.firebaseio.com",
+    "project_id": "muzbee-4aa8d",
+    "storage_bucket": "muzbee-4aa8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276965727572:android:4aac22a8575bea9070bcc1",
+        "android_client_info": {
+          "package_name": "app.mcoders.muzbee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276965727572-92pfu1sknrpp2nqkiv6jak4idujilqig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8hfQAdaaiV6fUUbgBTjwsBvE0O9cosUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276965727572-92pfu1sknrpp2nqkiv6jak4idujilqig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276965727572:android:d217fd90e3e66057",
+        "android_client_info": {
+          "package_name": "com.ldev.muzbee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276965727572-92pfu1sknrpp2nqkiv6jak4idujilqig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8hfQAdaaiV6fUUbgBTjwsBvE0O9cosUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276965727572-92pfu1sknrpp2nqkiv6jak4idujilqig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
