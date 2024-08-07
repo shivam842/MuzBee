@@ -1,13 +1,13 @@
 package app.mcoders.muzbee.domain.usecase
 
-import app.mcoders.muzbee.data.models.Song
+import androidx.media3.common.MediaItem
 import app.mcoders.muzbee.data.repository.MusicRepository
 import javax.inject.Inject
 
-class GetAllSongsUseCase @Inject constructor(
+class GetMediaItemUseCase @Inject constructor(
     private val musicRepository: MusicRepository
 ) {
-    operator fun invoke(): List<Song> {
-        return musicRepository.getAllSongs()
+    operator fun invoke(): MediaItem {
+        return musicRepository.getMediaItem()
     }
 }
