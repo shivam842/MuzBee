@@ -71,6 +71,15 @@ dependencies {
     // Accompanist Permission
     implementation(libs.accompanist.permissions)
 
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Exoplayer
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.extractor)
+
     // Splash API
     implementation(libs.androidx.core.splashscreen)
 
