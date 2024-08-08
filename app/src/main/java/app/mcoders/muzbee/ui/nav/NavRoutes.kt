@@ -6,4 +6,7 @@ sealed class NavRoutes{
 
     @Serializable
     object Main
+
+    @Serializable
+    object Player
 }

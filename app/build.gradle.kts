@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlin.serialization.json)
 
+    implementation (libs.androidx.material.icons.extended)
+
     // Accompanist Permission
     implementation(libs.accompanist.permissions)
 
@@ -98,6 +100,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.media3.session)
     ksp(libs.hilt.android.compiler)
 
     // Room
@@ -117,6 +120,8 @@ dependencies {
     implementation(libs.coil) {
         because("An image loading library for Android backed by Kotlin Coroutines")
     }
+
+    implementation(libs.glide)
 
     // Database caching
     implementation(libs.flower) {

@@ -30,7 +30,7 @@ object AppModule {
     ): MusicRepository = MusicRepositoryImpl(localDataSource, remoteDataSource)
 
     @Provides
-    fun provideLocalDataSource(contentResolver: ContentResolver): LocalDataSource = LocalDataSourceImpl(contentResolver)
+    fun provideLocalDataSource(@ApplicationContext context: Context): LocalDataSource = LocalDataSourceImpl(context)
 
     @Provides
     fun provideRemoteDataSource(): RemoteDataSource = RemoteDataSourceImpl()

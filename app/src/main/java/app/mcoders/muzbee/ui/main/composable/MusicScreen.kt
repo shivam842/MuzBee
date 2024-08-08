@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package app.mcoders.muzbee.ui.main.composable
 
 import androidx.compose.foundation.lazy.LazyColumn

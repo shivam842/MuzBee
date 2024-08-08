@@ -1,38 +1,53 @@
 package app.mcoders.muzbee.ui.nav
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import app.mcoders.muzbee.ui.main.composable.MusicPermissionScreen
+import app.mcoders.muzbee.ui.main.composable.HomeScreen
+import app.mcoders.muzbee.ui.player.PlayerScreen
+import app.mcoders.muzbee.ui.player.PlayerViewModel
+import app.mcoders.muzbee.ui.player.states.HomeUiEvents
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(
+    navController: NavHostController,
+    playerViewModel: PlayerViewModel,
+    startMusicServiceCallback: () -> Unit,
+) {
 
-    NavHost(navController = navController, startDestination = NavRoutes.Main) {
+    NavHost(
+        navController = navController,
+        startDestination = NavRoutes.Main
+    ) {
+
         composable<NavRoutes.Main> {
-            MusicPermissionScreen()
-            /*HomeScreen(
-                navigateToProfile = {
-                    navController.navigate(NavRoutes.Profile.path)
+            HomeScreen(
+                progress = playerViewModel.progress,
+                onProgressCallback = {
+                    playerViewModel.onHomeUiEvents(HomeUiEvents.SeekTo(it))
                 },
-                navigateToDetails = { id ->
-                    navController.navigate(NavRoutes.Details.withArgs(id))
+                isMusicPlaying = playerViewModel.isMusicPlaying,
+                currentPlayingMusic = playerViewModel.currentSelectedMusic,
+                musicList = playerViewModel.musicList,
+                onStartCallback = {
+                    playerViewModel.onHomeUiEvents(HomeUiEvents.PlayPause)
                 },
-                exitApp = { navController.popBackStack() },
-            )*/
-        }
-
-        /*composable(NavRoutes.Details.path) {
-            DetailsScreen(
-                onBackPressed = { navController.popBackStack() },
+                onMusicClick = {
+                    playerViewModel.onHomeUiEvents(HomeUiEvents.CurrentAudioChanged(it))
+                    startMusicServiceCallback.invoke()
+                },
+                onNextCallback = {
+                    playerViewModel.onHomeUiEvents(HomeUiEvents.SeekToNext)
+                },
+                onMiniPlayerClickCallback = {
+                    navController.navigate(NavRoutes.Player)
+                }
             )
         }
-
-        composable(NavRoutes.Profile.path) {
-            ProfileScreen(
-                onBackPressed = { navController.popBackStack() },
-            )
-        }*/
+        composable<NavRoutes.Player> {
+            PlayerScreen(playerViewModel)
+        }
     }
 }
