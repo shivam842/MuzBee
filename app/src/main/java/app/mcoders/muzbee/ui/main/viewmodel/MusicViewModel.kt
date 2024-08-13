@@ -19,9 +19,9 @@ class MusicViewModel @Inject constructor(
     private val _songs = MutableStateFlow<List<MusicFile>>(emptyList())
     val songs: StateFlow<List<MusicFile>> = _songs
 
-    fun loadMusicFiles() {
+    fun loadMusicFiles(ids: List<String>) {
         viewModelScope.launch {
-            getAllSongsUseCase().collectLatest { files ->
+            getAllSongsUseCase(ids).collectLatest { files ->
                 _songs.value = files
             }
         }

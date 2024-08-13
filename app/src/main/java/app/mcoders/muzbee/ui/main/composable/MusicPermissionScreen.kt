@@ -23,7 +23,7 @@ fun MusicPermissionScreen(viewModel: MusicViewModel = hiltViewModel()) {
         val allGranted = permissions.values.all { it }
         granted.value = allGranted
         if (allGranted) {
-            viewModel.loadMusicFiles()
+            viewModel.loadMusicFiles(emptyList())
         }
     }
 
@@ -52,7 +52,7 @@ fun MusicPermissionScreen(viewModel: MusicViewModel = hiltViewModel()) {
             launcher.launch(permissionsToRequest.toTypedArray())
         } else {
             granted.value = true
-            viewModel.loadMusicFiles()
+            viewModel.loadMusicFiles(emptyList())
         }
     }
 

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetAllSongsUseCase @Inject constructor(
     private val musicRepository: MusicRepository
 ) {
-    suspend operator fun invoke(): Flow<List<MusicFile>> {
-        return musicRepository.fetchMusicFiles()
+    suspend operator fun invoke(ids: List<String>): Flow<List<MusicFile>> {
+        return musicRepository.fetchMusicFiles(ids)
     }
 }

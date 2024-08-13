@@ -1,9 +1,13 @@
 package app.mcoders.muzbee.ui.player
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.net.toUri
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +37,7 @@ import javax.inject.Inject
 class PlayerViewModel @Inject constructor(
     private val musicServiceHandler: MusicServiceHandler,
     private val useCase: GetAllSongsUseCase,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
 
@@ -42,28 +46,20 @@ class PlayerViewModel @Inject constructor(
     private var progressValue by savedStateHandle.saveable { mutableStateOf("00:00") }
     var isMusicPlaying by savedStateHandle.saveable { mutableStateOf(false) }
     var currentSelectedMusic by savedStateHandle.saveable {
-        mutableStateOf(
-            MusicFile(
-                0L,
-                "".toUri(),
-                "",
-                "",
-                "",
-                "",
-                "",
-                0,
-                null
-            )
-        )
+        mutableStateOf(MusicFile(0L, "".toUri(), "", "", "", "", "", 0, null))
     }
     var musicList by savedStateHandle.saveable { mutableStateOf(listOf<MusicFile>()) }
+
+    internal var mList by mutableStateOf<List<MusicFile>>(emptyList())
+        private set
 
     private val _homeUiState: MutableStateFlow<HomeUIState> =
         MutableStateFlow(HomeUIState.InitialHome)
     val homeUIState: StateFlow<HomeUIState> = _homeUiState.asStateFlow()
 
     init {
-        getMusicData()
+        val musicIds: List<String> = savedStateHandle["musicIds"] ?: emptyList()
+        getMusicData(musicIds)
     }
 
     init {
@@ -75,7 +71,7 @@ class PlayerViewModel @Inject constructor(
                     is MusicStates.MediaPlaying -> isMusicPlaying = musicStates.isPlaying
                     is MusicStates.MediaProgress -> progressCalculation(musicStates.progress)
                     is MusicStates.CurrentMediaPlaying -> {
-                        currentSelectedMusic = musicList[musicStates.mediaItemIndex]
+                        currentSelectedMusic = mList[musicStates.mediaItemIndex]
                     }
 
                     is MusicStates.MediaReady -> {
@@ -85,6 +81,10 @@ class PlayerViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun saveMusicFilesState() {
+        savedStateHandle["musicIds"] = mList.map { it.id }
     }
 
     fun onHomeUiEvents(homeUiEvents: HomeUiEvents) = viewModelScope.launch {
@@ -125,17 +125,18 @@ class PlayerViewModel @Inject constructor(
         }
     }
 
-    private fun getMusicData() {
+    private fun getMusicData(ids: List<String>) {
         viewModelScope.launch {
-            useCase().collectLatest { files ->
-                musicList = files
+            useCase.invoke(ids).collectLatest { files ->
+                mList = files
+                saveMusicFilesState()
             }
             setMusicItems()
         }
     }
 
     private fun setMusicItems() {
-        musicList.map { audioItem ->
+        mList.map { audioItem ->
             MediaItem.Builder()
                 .setUri(audioItem.uri)
                 .setMediaMetadata(

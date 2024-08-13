@@ -1,7 +1,6 @@
 package app.mcoders.muzbee.ui.nav
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,7 +29,7 @@ fun NavGraph(
                 },
                 isMusicPlaying = playerViewModel.isMusicPlaying,
                 currentPlayingMusic = playerViewModel.currentSelectedMusic,
-                musicList = playerViewModel.musicList,
+                musicList = playerViewModel.mList,
                 onStartCallback = {
                     playerViewModel.onHomeUiEvents(HomeUiEvents.PlayPause)
                 },

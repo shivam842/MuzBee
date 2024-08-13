@@ -4,5 +4,5 @@ import app.mcoders.muzbee.data.models.MusicFile
 import kotlinx.coroutines.flow.Flow
 
 interface MusicRepository {
-    suspend fun fetchMusicFiles(): Flow<List<MusicFile>>
+    suspend fun fetchMusicFiles(ids: List<String>): Flow<List<MusicFile>>
 }
